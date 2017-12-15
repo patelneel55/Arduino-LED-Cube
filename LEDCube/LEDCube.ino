@@ -26,7 +26,9 @@ void loop()
 {
   ///turnOnAll();
   //delay(del);
-  while(x == 0)
+  //flickerLEDs();
+  cascadeLayer();
+  /*while(x == 0)
   {
     String text = "Happy Anniversary";
     text.toLowerCase();
@@ -35,7 +37,7 @@ void loop()
       displayLetter(text.charAt(i));
     }
     x = 1;
-  }
+  }*/
 }
 
 /* Turns on all LEDs*/
@@ -80,7 +82,60 @@ void turnOffLED(int x, int y, int z)
   digitalWrite(cols[x + (4 * y)], HIGH);
 }
 
+/********** PATTERNS **********/
 
+/* Flickers all LEDs with a decreasing time interval */
+void flickerLEDs()
+{
+  int timer = 150;
+  while(timer != 0)
+  {
+    turnOnAll();
+    delay(timer);
+    turnOffAll();
+    delay(timer);
+    timer -= 5;
+  }
+  turnOnAll();
+}
+
+void cascadeLayer()
+{
+  int cTime = 75;
+  
+  turnOnAll();
+  for(int i = 0;i < 5;i++)
+  {
+    
+    for(int r = 0;r < rows;r++)
+    {
+      digitalWrite(layer[r], LOW);
+      delay(cTime);
+    }
+    delay(cTime);
+    for(int r = rows - 1;r >= 0;r--)
+    {
+      digitalWrite(layer[r], HIGH);
+      delay(cTime);
+    }
+    delay(cTime);
+    for(int r = rows - 1;r >= 0;r--)
+    {
+      digitalWrite(layer[r], LOW);
+      delay(cTime);
+    }
+    delay(cTime);
+    for(int r = 0;r < rows;r++)
+    {
+      digitalWrite(layer[r], HIGH);
+      delay(cTime);
+    }
+  }
+}
+
+/********** ENF OF PATTERNS **********/
+
+/* Displays letter provided on the cube with a cascading effect */
 void displayLetter(char letter)
 {
   turnOffAll();
