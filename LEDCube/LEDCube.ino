@@ -25,21 +25,12 @@ void setup()
 void loop()
 {
   ///turnOnAll();
-  //delay(del);
-  //flickerLEDs();
-  //cascadeLayer();
-  //cascadeGroup();
-  /*while(x == 0)
-  {
-    String text = "Happy Anniversary";
-    text.toLowerCase();
-    for(int i = 0;i < text.length();i++)
-    {
-      displayLetter(text.charAt(i));
-    }
-    x = 1;
-  }*/
-  displayLetter('v');
+  displayWords("Happy Anniversary");
+  delay(del);
+  flickerLEDs();
+  cascadeLayer();
+  cascadeGroup();
+  //displayLetter('v');
 }
 
 /* Turns on all LEDs*/
@@ -214,6 +205,16 @@ void spiral()
   
 }
 /********** ENF OF PATTERNS **********/
+
+/* Displays words by using the displayLetter function */
+void displayWords(String word)
+{
+  word.toLowerCase();
+  for(int i = 0;i < word.length();i++)
+  {
+    displayLetter(word.charAt(i));
+  }
+}
 
 /* Displays letter provided on the cube with a cascading effect */
 void displayLetter(char letter)
