@@ -25,7 +25,7 @@ void loop()
 {
   ///turnOnAll();
   //delay(del);
-  displayLetter('h');
+  displayLetter('p');
 }
 
 /* Turns on all LEDs*/
@@ -103,7 +103,7 @@ void displayLetter(char letter)
         digitalWrite(layer[i], HIGH);
       }
 
-            for(int i = 0;i < columns;i+=4)
+      for(int i = 0;i < columns;i+=4)
       {
         digitalWrite(cols[i], LOW);
         digitalWrite(cols[i+3], LOW);
@@ -114,6 +114,26 @@ void displayLetter(char letter)
         digitalWrite(cols[i+4], LOW);
       }
     break;
+
+    case 'p':
+      // Turn on all rows
+      for(int i = 0; i<rows; i++)
+      {
+        digitalWrite(layer[i], HIGH);
+        turnOnLED(3, 2, i);
+      }
+
+      for(int i = 0;i < columns;i+=4)
+      {
+        digitalWrite(cols[i], LOW);
+      }
+      for(int i = 5;i < 7;i++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i+8], LOW);
+      }
+    break;
+    
   }
 }
 
