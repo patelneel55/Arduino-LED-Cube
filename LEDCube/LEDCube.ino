@@ -27,7 +27,8 @@ void loop()
   ///turnOnAll();
   //delay(del);
   //flickerLEDs();
-  cascadeLayer();
+  //cascadeLayer();
+  //cascadeGroup();
   /*while(x == 0)
   {
     String text = "Happy Anniversary";
@@ -82,6 +83,42 @@ void turnOffLED(int x, int y, int z)
   digitalWrite(cols[x + (4 * y)], HIGH);
 }
 
+/* Turns off only the rows */
+void turnOffRows()
+{
+  for(int i = 0; i<4; i++)
+  {
+    digitalWrite(layer[i], LOW);
+  }
+}
+
+/* Turns on only the rows */
+void turnOnRows()
+{
+  for(int i = 0; i<4; i++)
+  {
+    digitalWrite(layer[i], HIGH);
+  }
+}
+
+/* Turns off only the columns */
+void turnOnCols()
+{
+  for(int i = 0; i<16; i++)
+  {
+    digitalWrite(cols[i], HIGH);
+  }
+}
+
+/* Turns on only the columns */
+void turnOffCols()
+{
+  for(int i = 0; i<16; i++)
+  {
+    digitalWrite(cols[i], LOW);
+  }
+}
+
 /********** PATTERNS **********/
 
 /* Flickers all LEDs with a decreasing time interval */
@@ -99,6 +136,7 @@ void flickerLEDs()
   turnOnAll();
 }
 
+/* Cascade LEDs per row*/
 void cascadeLayer()
 {
   int cTime = 75;
@@ -133,6 +171,47 @@ void cascadeLayer()
   }
 }
 
+/*Cascade in groups*/
+void cascadeGroup()
+{
+  int timer = 75;
+  
+  turnOffRows();
+  for(int i = 0; i < 5;i++)
+  {
+    for(int x = 0; x < 1;x++)
+    { 
+      for(int i = 0; i < rows;i++)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(timer);
+        digitalWrite(layer[i], LOW);
+      }
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(timer);
+        digitalWrite(layer[i], LOW);
+      }
+    }
+    for(int i = 0; i < rows;i++)
+    {
+      digitalWrite(layer[i], 1);
+      delay(timer);
+    }
+    for(int i = rows; i >= 0;i--)
+    {
+      digitalWrite(layer[i], 0);
+      delay(timer);
+    }
+  }
+}
+
+/* Spiral pattern in columns */
+void spiral()
+{
+  
+}
 /********** ENF OF PATTERNS **********/
 
 /* Displays letter provided on the cube with a cascading effect */
