@@ -28,31 +28,28 @@ void loop()
 /* Turns on all LEDs*/
 void turnOnAll()
 {
-  for(int x = 0;x < rows;x++)
+  for(int i = 0; i<16; i++)
   {
-    for(int y = 0;y < rows;y++)
-    {
-      for(int z = 0;z < rows;z++)
-      {
-        turnOnLED(x, y, z);
-      }
-    }
+    digitalWrite(cols[i], LOW);
+  }
+  
+  for(int i = 0; i<4; i++)
+  {
+    digitalWrite(layer[i], HIGH);
   }
 }
 
 /* Turns off all LEDs*/
 void turnOffAll()
 {
-  // Sets all the rows to power source
-  for(int i = 0;i < rows;i++)
-  {
-    digitalWrite(layer[i], LOW);
-  }
-
-  // Sets all the cols to ground
-  for(int i = 0;i < columns;i++)
+  for(int i = 0; i<16; i++)
   {
     digitalWrite(cols[i], HIGH);
+  }
+  
+  for(int i = 0; i<4; i++)
+  {
+    digitalWrite(layer[i], LOW);
   }
 }
 
@@ -61,6 +58,13 @@ void turnOnLED(int x, int y, int z)
 {
   digitalWrite(layer[rows - z - 1], HIGH);
   digitalWrite(cols[x + (4 * y)], LOW);
+}
+
+/* 3D Coordinate system to turn off a LED*/
+void turnOffLED(int x, int y, int z)
+{
+  digitalWrite(layer[rows - z - 1], LOW);
+  digitalWrite(cols[x + (4 * y)], HIGH);
 }
 
 
