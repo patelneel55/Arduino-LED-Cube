@@ -39,6 +39,7 @@ void loop()
     }
     x = 1;
   }*/
+  displayLetter('v');
 }
 
 /* Turns on all LEDs*/
@@ -245,6 +246,32 @@ void displayLetter(char letter)
       }
     break;
 
+    case 'e':
+    {
+      for(int i = 0;i < columns;i++)
+      {
+        if(i < 4 || i % 4 == 0 || i > 11)
+          digitalWrite(cols[i], LOW);
+      }
+
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        turnOnLED(1, 2, i);
+        turnOnLED(2, 1, i);
+        turnOnLED(3, 2, i);
+        delay(75);
+        if(i != rows - 1 && i != -1)
+        {
+          digitalWrite(layer[i + 1], LOW);
+          turnOnLED(1, 2, i);
+          turnOnLED(2, 1, i);
+          turnOnLED(3, 2, i);
+        }
+      }
+    }
+    break;
+    
     case 'h':
       for(int i = 0;i < columns;i+=4)
       {
@@ -362,6 +389,58 @@ void displayLetter(char letter)
         }
       }
     break;
+
+    case 's':
+    {
+      int k = 0;
+      for(int i = 0;i < rows; i ++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 12], LOW);
+        digitalWrite(cols[12 - (3 * i)], LOW);
+        k++;
+      }
+
+
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        if(i != rows - 1 && i != -1)
+        {
+          digitalWrite(layer[i + 1], LOW);
+        }
+      }
+    }
+    break;
+
+    case 'v':
+    {
+      for(int i = 4;i < columns;i+=4)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 3], LOW);
+      }
+
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        turnOnLED(1, 1, i);
+        turnOnLED(2, 1, i);
+        turnOnLED(1, 0, i);
+        turnOnLED(2, 0, i);
+        delay(75);
+        if(i != rows - 1 && i != 0)
+        {
+          digitalWrite(layer[i + 1], LOW);
+          turnOffLED(1, 1, i);
+          turnOffLED(2, 1, i);
+          turnOffLED(1, 0, i);
+          turnOffLED(2, 0, i);
+        }
+      }
+    }
+    break;
     
     case 'y':
       int m = 0;
@@ -391,7 +470,7 @@ void displayLetter(char letter)
     break;
     
   }
-  delay(del);
+  delay(del+100);
 }
 
 
