@@ -1,3 +1,4 @@
+
 // Initialize LEDs to designated pins
 int rows = 4;
 int columns = 16;
@@ -22,7 +23,9 @@ void setup()
 
 void loop()
 {
-  turnOnAll();
+  ///turnOnAll();
+  //delay(del);
+  displayLetter('h');
 }
 
 /* Turns on all LEDs*/
@@ -66,6 +69,55 @@ void turnOffLED(int x, int y, int z)
   digitalWrite(layer[rows - z - 1], LOW);
   digitalWrite(cols[x + (4 * y)], HIGH);
 }
+
+
+void displayLetter(char letter)
+{
+  turnOffAll();
+  switch(letter)
+  {
+    case 'a':
+      // Turn on all rows
+      for(int i = 0; i<rows; i++)
+      {
+        digitalWrite(layer[i], HIGH);
+      }
+
+      
+      for(int i = 0;i < columns;i+=4)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i+3], LOW);
+      }
+      for(int i = 5;i < 7;i++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i+8], LOW);
+      }
+    break;
+
+    case 'h':
+      // Turn on all rows
+      for(int i = 0; i<rows; i++)
+      {
+        digitalWrite(layer[i], HIGH);
+      }
+
+            for(int i = 0;i < columns;i+=4)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i+3], LOW);
+      }
+      for(int i = 5;i < 7;i++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i+4], LOW);
+      }
+    break;
+  }
+}
+
+
 
 
 
