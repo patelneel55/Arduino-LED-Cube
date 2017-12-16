@@ -31,7 +31,8 @@ void loop()
   //cascadeLayer();
   //cascadeLayerGroup();
   //spiral();
-  cascadeColumn();
+  //cascadeColumn();
+  circleEdge();
   delay(2000);
 }
 
@@ -284,6 +285,36 @@ void spiral()
       delay(timer);
     }
   }
+}
+
+void circleEdge()
+{
+  int circle[] = {0, 4, 8, 12, 13, 14, 15, 11, 7, 3, 2, 1};
+  for(int timer = 200;timer > 0;timer -=50)
+  {
+    turnOffAll();
+    for(int i = rows - 1;i >= 0; i--)
+    {
+      digitalWrite(layer[i], HIGH);
+      
+      // Turns on middle 4 LEDs
+      digitalWrite(cols[5], LOW);
+      digitalWrite(cols[6], LOW);
+      digitalWrite(cols[9], LOW);
+      digitalWrite(cols[10], LOW);
+
+      // Turns on the columns based on the pattern in the array
+      for(int c = 0;c < columns - 4;c++)
+      {
+        if(c != 0)
+          digitalWrite(cols[circle[c-1]], HIGH);
+        digitalWrite(cols[circle[c]], LOW);
+        delay(timer);
+      }
+      digitalWrite(cols[circle[columns - 5]], HIGH);
+    }
+  }
+  turnOffAll();
 }
 
 /********** ENF OF PATTERNS **********/
