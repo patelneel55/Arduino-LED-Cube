@@ -29,8 +29,9 @@ void loop()
   //delay(del);
   //flickerLEDs();
   //cascadeLayer();
-  //cascadeGroup();
-  spiral();
+  //cascadeLayerGroup();
+  //spiral();
+  cascadeColumn();
   delay(2000);
 }
 
@@ -165,7 +166,7 @@ void cascadeLayer()
 }
 
 /*Cascade in groups*/
-void cascadeGroup()
+void cascadeLayerGroup()
 {
   int timer = 75;
   
@@ -200,7 +201,50 @@ void cascadeGroup()
   }
 }
 
-/* Spiral pattern in columns */
+/* Cascade LEDs per column*/
+void cascadeColumn()
+{
+  int timer = 75;
+
+  turnOffAll();
+  turnOnRows();
+  for(int times = 0;times < 3;times++)
+  {
+    for(int i = 0;i < columns;i++)
+    {
+      digitalWrite(cols[i], LOW);
+      delay(timer);
+    }
+    delay(timer);
+    for(int i = 0;i < columns;i++)
+    {
+      digitalWrite(cols[i], HIGH);
+      delay(timer);
+    }
+    delay(timer);
+    for(int i = 0;i < columns;i+=4)
+    {
+      int temp = 12 - i;
+      for(int j = temp;j < temp+4;j++)
+      {
+        digitalWrite(cols[j], LOW);
+        delay(timer);
+      }
+    }
+    delay(timer);
+    for(int i = 0;i < columns;i+=4)
+    {
+      int temp = 12 - i;
+      for(int j = temp;j < temp+4;j++)
+      {
+        digitalWrite(cols[j], HIGH);
+        delay(timer);
+      }
+    }
+  }
+}
+
+/* Spiral pattern in columns (counter-clockwise and clockwise) */
 void spiral()
 {
   turnOnAll();
@@ -209,24 +253,31 @@ void spiral()
   int clockMatrix[] = {0, 4, 8, 12, 13, 14, 15, 11, 7, 3, 2, 1, 5, 9, 10, 6};
   for(int i = 0; i<6; i++)
   {
+    // Turns off in a counter clockwise spiral
     for(int s = 0;s <= columns;s++)
     {
       digitalWrite(cols[cclockMatrix[s]], HIGH);
       delay(timer);
     }
     delay(timer);
+
+    // Turns on in a clockwise spiral
     for(int s = columns - 1;s >= 0;s--)
     {
       digitalWrite(cols[cclockMatrix[s]], LOW);
       delay(timer);
     }
     delay(timer);
+
+    // Turns off in a clockwise spiral
     for(int s = 0;s <= columns;s++)
     {
       digitalWrite(cols[clockMatrix[s]], HIGH);
       delay(timer);
     }
     delay(timer);
+
+    // Turns on in a clockwise spiral
     for(int s = columns - 1;s >= 0;s--)
     {
       digitalWrite(cols[clockMatrix[s]], LOW);
@@ -234,6 +285,7 @@ void spiral()
     }
   }
 }
+
 /********** ENF OF PATTERNS **********/
 
 /* Displays words by using the displayLetter function */
