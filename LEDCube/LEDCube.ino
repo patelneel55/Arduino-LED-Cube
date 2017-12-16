@@ -25,7 +25,7 @@ void setup()
 void loop()
 {
   ///turnOnAll();
-  //displayWords("Happy Anniversary");
+  //displayWords("Happy 21 Anniversary");
   //delay(del);
   //flickerLEDs();
   //cascadeLayer();
@@ -33,7 +33,7 @@ void loop()
   //spiral();
   //cascadeColumn();
   //crcleEdge();
-  randomFlicker();
+  //randomFlicker();
   delay(2000);
 }
 
@@ -579,6 +579,7 @@ void displayLetter(char letter)
     break;
     
     case 'y':
+    {
       int m = 0;
       for(int i = 12;i >= 0;i -= 3)
       {
@@ -603,6 +604,61 @@ void displayLetter(char letter)
           digitalWrite(layer[i + 1], LOW);
         }
       }
+    }
+    break;
+
+    case '1':
+    {
+      for(int i = 0;i < columns;i++)
+      {
+        if((i+1) % 4 != 0 && i % 4 != 0 || i == 0)
+          digitalWrite(cols[i], LOW);
+      }
+
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        turnOnLED(3, 0, i);
+        if(i != rows - 1 && i != 0)
+        {
+          digitalWrite(layer[i + 1], LOW);
+          turnOffLED(3, 0, i);
+        }
+      }
+    }
+    break;
+
+    case '2':
+    { 
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        turnOnLED(0, 0, i);
+        turnOnLED(1, 0, i);
+        turnOnLED(2, 0, i);
+        turnOnLED(3, 0, i);
+        turnOnLED(0, 3, i);
+        turnOnLED(1, 1, i);
+        turnOnLED(2, 1, i);
+        turnOnLED(3, 2, i);
+        turnOnLED(1, 3, i);
+        turnOnLED(2, 3, i);
+        delay(75);
+        if(i != 0)
+        {
+          turnOffLED(0, 0, i);
+          turnOffLED(1, 0, i);
+          turnOffLED(2, 0, i);
+          turnOffLED(3, 0, i);
+          turnOffLED(0, 3, i);
+          turnOffLED(1, 1, i);
+          turnOffLED(2, 1, i);
+          turnOffLED(3, 2, i);
+          turnOffLED(1, 3, i);
+          turnOffLED(2, 3, i);
+        }
+      }
+    }
     break;
     
   }
