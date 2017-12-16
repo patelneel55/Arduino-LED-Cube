@@ -25,12 +25,13 @@ void setup()
 void loop()
 {
   ///turnOnAll();
-  displayWords("Happy Anniversary");
-  delay(del);
-  flickerLEDs();
-  cascadeLayer();
-  cascadeGroup();
-  //displayLetter('v');
+  //displayWords("Happy Anniversary");
+  //delay(del);
+  //flickerLEDs();
+  //cascadeLayer();
+  //cascadeGroup();
+  spiral();
+  delay(2000);
 }
 
 /* Turns on all LEDs*/
@@ -202,7 +203,36 @@ void cascadeGroup()
 /* Spiral pattern in columns */
 void spiral()
 {
-  
+  turnOnAll();
+  int timer = 60;
+  int cclockMatrix[] = {0, 1, 2, 3, 7, 11, 15, 14, 13, 12, 8, 4, 5, 6, 10, 9};
+  int clockMatrix[] = {0, 4, 8, 12, 13, 14, 15, 11, 7, 3, 2, 1, 5, 9, 10, 6};
+  for(int i = 0; i<6; i++)
+  {
+    for(int s = 0;s <= columns;s++)
+    {
+      digitalWrite(cols[cclockMatrix[s]], HIGH);
+      delay(timer);
+    }
+    delay(timer);
+    for(int s = columns - 1;s >= 0;s--)
+    {
+      digitalWrite(cols[cclockMatrix[s]], LOW);
+      delay(timer);
+    }
+    delay(timer);
+    for(int s = 0;s <= columns;s++)
+    {
+      digitalWrite(cols[clockMatrix[s]], HIGH);
+      delay(timer);
+    }
+    delay(timer);
+    for(int s = columns - 1;s >= 0;s--)
+    {
+      digitalWrite(cols[clockMatrix[s]], LOW);
+      delay(timer);
+    }
+  }
 }
 /********** ENF OF PATTERNS **********/
 
@@ -473,6 +503,7 @@ void displayLetter(char letter)
   }
   delay(del+100);
 }
+
 
 
 
