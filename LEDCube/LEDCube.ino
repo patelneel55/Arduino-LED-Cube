@@ -34,6 +34,7 @@ void loop()
   //cascadeColumn();
   //crcleEdge();
   //randomFlicker();
+  randomRain();
   delay(2000);
 }
 
@@ -336,6 +337,33 @@ void randomFlicker()
     digitalWrite(layer[randLay], LOW);
     digitalWrite(cols[randCol], HIGH);
     delay(timer);
+  }
+}
+
+/* Raining effect in random columns */
+void randomRain()
+{
+  turnOffAll();
+
+  int timer = 100;
+
+  for(int i = 0;i < 30;i++)
+  {
+    int randCol = random(0, 16);
+
+    digitalWrite(cols[randCol], LOW);
+
+    for(int j = 0;j < rows;j++)
+    {
+      if(j != 0)
+      {
+        digitalWrite(layer[j - 1], LOW);
+      }
+      digitalWrite(layer[j], HIGH);
+      delay(timer);
+    }
+    digitalWrite(layer[rows - 1], LOW);
+    digitalWrite(cols[randCol], HIGH);
   }
 }
 
