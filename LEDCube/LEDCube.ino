@@ -32,7 +32,8 @@ void loop()
   //cascadeLayerGroup();
   //spiral();
   //cascadeColumn();
-  circleEdge();
+  //crcleEdge();
+  randomFlicker();
   delay(2000);
 }
 
@@ -287,6 +288,7 @@ void spiral()
   }
 }
 
+/* Rotation pattern that keeps rotating around the edges of the LED cube */
 void circleEdge()
 {
   int circle[] = {0, 4, 8, 12, 13, 14, 15, 11, 7, 3, 2, 1};
@@ -315,6 +317,26 @@ void circleEdge()
     }
   }
   turnOffAll();
+}
+
+/* Random LEDs turn on to create a disco pattern */
+void randomFlicker()
+{
+  int timer = 10;
+  turnOffAll();
+  for(int i = 0;i < 255;i++)
+  {
+    // Generates a random layer and column
+    int randLay = random(0, rows);
+    int randCol = random(0, columns);
+
+    digitalWrite(layer[randLay], HIGH);
+    digitalWrite(cols[randCol], LOW);
+    delay(timer);
+    digitalWrite(layer[randLay], LOW);
+    digitalWrite(cols[randCol], HIGH);
+    delay(timer);
+  }
 }
 
 /********** ENF OF PATTERNS **********/
