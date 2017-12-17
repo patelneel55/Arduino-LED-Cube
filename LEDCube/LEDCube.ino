@@ -34,7 +34,9 @@ void loop()
   //cascadeColumn();
   //crcleEdge();
   //randomFlicker();
-  randomRain();
+  //randomRain();
+  //diagonalRectangle();
+  flickerAll();
   delay(2000);
 }
 
@@ -364,6 +366,71 @@ void randomRain()
     }
     digitalWrite(layer[rows - 1], LOW);
     digitalWrite(cols[randCol], HIGH);
+  }
+}
+
+/* Flicker through all LEDs */
+void flickerAll()
+{
+  turnOffAll();
+  int timer = 15;
+  for(int x = 0;x < 5;x++)
+  {
+    // LED Columns 0 - 3
+    for(int count = rows - 1; count >= 0; count--)
+    {
+      digitalWrite(layer[count], HIGH);
+      for(int i = 0; i < 4; i++)
+      {
+        digitalWrite(cols[i], LOW);
+        delay(timer);
+        digitalWrite(cols[i], HIGH);
+        delay(timer);
+      }
+      digitalWrite(layer[count], LOW);
+    }
+    
+    // LED Columns 4 - 8
+    for(int count = 0; count < 4; count++)
+    {
+      digitalWrite(layer[count], HIGH);
+      for(int i = 4; i < 8; i++)
+      {
+        digitalWrite(cols[i], LOW);
+        delay(timer);
+        digitalWrite(cols[i], HIGH);
+        delay(timer);
+      }
+      digitalWrite(layer[count], LOW);
+    }
+    
+    // LED Columns 8 - 11
+    for(int count = rows - 1; count >= 0; count--)
+    {
+      digitalWrite(layer[count], HIGH);
+      for(int i = 8; i < 12; i++)
+      {
+        digitalWrite(cols[i], LOW);
+        delay(timer);
+        digitalWrite(cols[i], HIGH);
+        delay(x);
+      }
+      digitalWrite(layer[count], LOW);
+    }
+    
+    // LED Columns 12 - 15
+    for(int count = 0; count < rows; count++)
+    {
+      digitalWrite(layer[count], HIGH);
+      for(int i = 12; i < 16; i++)
+      {
+        digitalWrite(cols[i], LOW);
+        delay(timer);
+        digitalWrite(cols[i], HIGH);
+        delay(timer);
+      }
+      digitalWrite(layer[count], LOW);
+    }
   }
 }
 
