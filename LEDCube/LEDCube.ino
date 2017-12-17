@@ -24,22 +24,20 @@ void setup()
 
 void loop()
 {
-  ///turnOnAll();
-  //displayWords("Happy 21 Anniversary");
-  //delay(del);
-  //flickerLEDs(false);
-  //cascadeLayer();
-  //cascadeLayerGroup();
-  //spiral();
-  //cascadeColumn();
-  //crcleEdge();
-  //randomFlicker();
-  //randomRain();
-  //diagonalRectangle();
-  //flickerAll();
-  //propellerRotate();
-  //spiral();
-  //flickerLEDs(true);
+  displayWords("Happy 21 Anniversary");
+  delay(del);
+  flickerLEDs(false);
+  cascadeLayer();
+  cascadeLayerGroup();
+  spiral();
+  cascadeColumn();
+  circleEdge();
+  randomFlicker();
+  randomRain();
+  flickerAll();
+  propellerRotate();
+  spiral();
+  flickerLEDs(true);
   turnOffAll();
   delay(2000);
 }
@@ -150,6 +148,7 @@ void flickerLEDs(bool rev)
       turnOnAll();
       delay(i);
     }
+    delay(del);
   }
 }
 
