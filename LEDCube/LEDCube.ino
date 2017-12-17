@@ -36,7 +36,8 @@ void loop()
   //randomFlicker();
   //randomRain();
   //diagonalRectangle();
-  flickerAll();
+  //flickerAll();
+  propellerRotate();
   delay(2000);
 }
 
@@ -100,21 +101,21 @@ void turnOnRows()
   }
 }
 
-/* Turns off only the columns */
+/* Turns on only the columns */
 void turnOnCols()
 {
   for(int i = 0; i<16; i++)
   {
-    digitalWrite(cols[i], HIGH);
+    digitalWrite(cols[i], LOW);
   }
 }
 
-/* Turns on only the columns */
+/* Turns off only the columns */
 void turnOffCols()
 {
   for(int i = 0; i<16; i++)
   {
-    digitalWrite(cols[i], LOW);
+    digitalWrite(cols[i], HIGH);
   }
 }
 
@@ -430,6 +431,69 @@ void flickerAll()
         delay(timer);
       }
       digitalWrite(layer[count], LOW);
+    }
+  }
+}
+
+/* Generates a propeller rotating pattern */
+void propellerRotate()
+{
+  turnOffAll();
+  int timer = 90;
+
+  for(int i = rows - 1;i >= 0;i--)
+  {
+    for(int rot = 0;rot < 6;rot++)
+    {
+      digitalWrite(layer[i], HIGH);
+
+      // A1
+      turnOffCols();
+      digitalWrite(cols[0], 0);
+      digitalWrite(cols[5], 0);
+      digitalWrite(cols[10], 0);
+      digitalWrite(cols[15], 0);
+      delay(timer);
+      
+      // B1
+      turnOffCols();
+      digitalWrite(cols[4], 0);
+      digitalWrite(cols[5], 0);
+      digitalWrite(cols[10], 0);
+      digitalWrite(cols[11], 0);
+      delay(timer);
+      
+      // C1
+      turnOffCols();
+      digitalWrite(cols[6], 0);
+      digitalWrite(cols[7], 0);
+      digitalWrite(cols[8], 0);
+      digitalWrite(cols[9], 0);
+      delay(timer);
+      
+      // D1
+      turnOffCols();
+      digitalWrite(cols[3], 0);
+      digitalWrite(cols[6], 0);
+      digitalWrite(cols[9], 0);
+      digitalWrite(cols[12], 0);
+      delay(timer);
+      
+      // D2
+      turnOffCols();
+      digitalWrite(cols[2], 0);
+      digitalWrite(cols[6], 0);
+      digitalWrite(cols[9], 0);
+      digitalWrite(cols[13], 0);
+      delay(timer);
+      
+      // D3
+      turnOffCols();
+      digitalWrite(cols[1], 0);
+      digitalWrite(cols[5], 0);
+      digitalWrite(cols[10], 0);
+      digitalWrite(cols[14], 0);
+      delay(timer);
     }
   }
 }
