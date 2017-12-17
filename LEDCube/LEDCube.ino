@@ -27,7 +27,7 @@ void loop()
   ///turnOnAll();
   //displayWords("Happy 21 Anniversary");
   //delay(del);
-  //flickerLEDs();
+  //flickerLEDs(false);
   //cascadeLayer();
   //cascadeLayerGroup();
   //spiral();
@@ -37,7 +37,10 @@ void loop()
   //randomRain();
   //diagonalRectangle();
   //flickerAll();
-  propellerRotate();
+  //propellerRotate();
+  //spiral();
+  //flickerLEDs(true);
+  turnOffAll();
   delay(2000);
 }
 
@@ -122,18 +125,32 @@ void turnOffCols()
 /********** PATTERNS **********/
 
 /* Flickers all LEDs with a decreasing time interval */
-void flickerLEDs()
+void flickerLEDs(bool rev)
 {
   int timer = 150;
-  while(timer != 0)
+  if (!rev)
+  {
+    while(timer != 0)
+    {
+      turnOnAll();
+      delay(timer);
+      turnOffAll();
+      delay(timer);
+      timer -= 5;
+    }
+    turnOnAll();
+  }
+  else
   {
     turnOnAll();
-    delay(timer);
-    turnOffAll();
-    delay(timer);
-    timer -= 5;
+    for(int i = 50;i < 150;i+=5)
+    {
+      turnOffAll();
+      delay(i);
+      turnOnAll();
+      delay(i);
+    }
   }
-  turnOnAll();
 }
 
 /* Cascade LEDs per row*/
