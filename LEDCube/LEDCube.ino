@@ -1,17 +1,18 @@
-
+  
 // Initialize LEDs to designated pins
 int rows = 4;
 int columns = 16;
 int layer[4] = {A3, A2, A1, A0};
 int cols[16] = {13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, A5, A4};
 
-int x = 0;
 // Standard delay for all transitions
 int del = 250;
 
+/* Initial setup of components */
 void setup() 
 {
   // Initialize the pins to OUTPUT
+  
   for(int i = 0;i < rows;i++)
   {
     pinMode(layer[i], OUTPUT);
@@ -22,8 +23,11 @@ void setup()
   }
 }
 
+/* Infinite Loop */
 void loop()
 {
+  // Pattern order and selection
+
   displayWords("Happy 21 Anniversary");
   delay(del);
   flickerLEDs(false);
@@ -42,7 +46,7 @@ void loop()
   delay(2000);
 }
 
-/* Turns on all LEDs*/
+/* Turns on all LEDs */
 void turnOnAll()
 {
   for(int i = 0; i<16; i++)
@@ -56,7 +60,7 @@ void turnOnAll()
   }
 }
 
-/* Turns off all LEDs*/
+/* Turns off all LEDs */
 void turnOffAll()
 {
   for(int i = 0; i<16; i++)
@@ -70,21 +74,21 @@ void turnOffAll()
   }
 }
 
-/* 3D Coordinate system to turn on a LED */
+/* 3D Coordinate system to turn on an individual LED */
 void turnOnLED(int x, int y, int z)
 {
   digitalWrite(layer[z], HIGH);
   digitalWrite(cols[x + (4 * y)], LOW);
 }
 
-/* 3D Coordinate system to turn off a LED*/
+/* 3D Coordinate system to turn off a individual LED */
 void turnOffLED(int x, int y, int z)
 {
   digitalWrite(layer[z], LOW);
   digitalWrite(cols[x + (4 * y)], HIGH);
 }
 
-/* Turns off only the rows */
+/* Turns off only the LED rows */
 void turnOffRows()
 {
   for(int i = 0; i<4; i++)
@@ -93,7 +97,7 @@ void turnOffRows()
   }
 }
 
-/* Turns on only the rows */
+/* Turns on only the LED rows */
 void turnOnRows()
 {
   for(int i = 0; i<4; i++)
@@ -102,7 +106,7 @@ void turnOnRows()
   }
 }
 
-/* Turns on only the columns */
+/* Turns on only the LED columns */
 void turnOnCols()
 {
   for(int i = 0; i<16; i++)
@@ -111,7 +115,7 @@ void turnOnCols()
   }
 }
 
-/* Turns off only the columns */
+/* Turns off only the LED columns */
 void turnOffCols()
 {
   for(int i = 0; i<16; i++)
@@ -122,44 +126,47 @@ void turnOffCols()
 
 /********** PATTERNS **********/
 
-/* Flickers all LEDs with a decreasing time interval */
+/* Flickers all LEDs with an increasing/decreasing time interval */
 void flickerLEDs(bool rev)
 {
   int timer = 150;
   if (!rev)
   {
-    while(timer != 0)
+    for(int i = timer;i >= 5;i -= 5)
     {
       turnOnAll();
-      delay(timer);
+      delay(i);
       turnOffAll();
-      delay(timer);
-      timer -= 5;
+      delay(i);
     }
     turnOnAll();
   }
   else
   {
     turnOnAll();
-    for(int i = 50;i < 150;i+=5)
+    for(int i = 5;i < timer;i += 5)
     {
       turnOffAll();
       delay(i);
       turnOnAll();
       delay(i);
     }
-    delay(del);
+    turnOnAll();
   }
 }
 
-/* Cascade LEDs per row*/
+/* Cascade LEDs per row */
 void cascadeLayer()
 {
   int cTime = 75;
   
   turnOnAll();
+
+  // Number of times to repeat the whole pattern
   for(int i = 0;i < 5;i++)
   {
+    // Turns off all LED rows and turns them back on in
+    // a reverse order
     
     for(int r = 0;r < rows;r++)
     {
@@ -167,33 +174,38 @@ void cascadeLayer()
       delay(cTime);
     }
     delay(cTime);
+    
     for(int r = rows - 1;r >= 0;r--)
     {
       digitalWrite(layer[r], HIGH);
       delay(cTime);
     }
     delay(cTime);
+    
     for(int r = rows - 1;r >= 0;r--)
     {
       digitalWrite(layer[r], LOW);
       delay(cTime);
     }
     delay(cTime);
+    
     for(int r = 0;r < rows;r++)
     {
       digitalWrite(layer[r], HIGH);
       delay(cTime);
     }
+    delay(cTime);
   }
 }
 
-/*Cascade in groups*/
+/* Cascade in groups */
 void cascadeLayerGroup()
 {
   int timer = 75;
   
   turnOffRows();
-  for(int i = 0; i < 5;i++)
+  // Number of times to repeat the whole pattern
+  for(int times = 0; times < 5;times++)
   {
     for(int x = 0; x < 1;x++)
     { 
@@ -223,7 +235,7 @@ void cascadeLayerGroup()
   }
 }
 
-/* Cascade LEDs per column*/
+/* Cascade LEDs per column */
 void cascadeColumn()
 {
   int timer = 75;
