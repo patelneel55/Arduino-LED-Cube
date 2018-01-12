@@ -545,6 +545,7 @@ void displayLetter(char letter)
   switch(letter)
   {
     case 'a':
+    {
       for(int i = 0;i < columns;i+=4)
       {
         digitalWrite(cols[i], LOW);
@@ -567,8 +568,64 @@ void displayLetter(char letter)
           turnOffLED(3, 2, i);
         }
       }
+    }
     break;
 
+    case 'b':
+    {
+        
+    }
+    break;
+
+    case 'c':
+    {
+      for(int i = 0;i < columns;i += 4)
+      {
+        digitalWrite(cols[i], LOW);
+      }
+      for(int i = 0;i < 4;i++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 12], LOW);
+      }
+
+      for(int i = rows - 1;i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        if(i != rows - 1 && i != 0)
+        {
+          digitalWrite(layer[i + 1], LOW);
+        }
+      }
+    }
+    break;
+
+    case 'd':
+    {
+      for(int i = 4;i < 12;i += 4)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 3], LOW);
+      }
+      for(int i = 0;i < 3;i++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 12], LOW);
+      }
+
+      for(int i = rows - 1;i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        if(i != rows - 1 && i != 0)
+        {
+          digitalWrite(layer[i + 1], LOW);
+        }
+      }
+    }
+    break;
+    
     case 'e':
     {
       for(int i = 0;i < columns;i++)
@@ -590,6 +647,61 @@ void displayLetter(char letter)
           turnOnLED(1, 2, i);
           turnOnLED(2, 1, i);
           turnOnLED(3, 2, i);
+        }
+      }
+    }
+    break;
+
+    case 'f':
+    {
+      for(int i = 0;i < columns;i += 4)
+      {
+         digitalWrite(cols[i], LOW);
+      }
+      for(int i = 12;i < columns;i++)
+      {
+        digitalWrite(cols[i], LOW);
+      }
+      for(int i = 4;i < 8;i++)
+      {
+        digitalWrite(cols[i], LOW);
+      }
+
+      for(int i = rows - 1;i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        if(i != rows - 1 && i != 0)
+        {
+          digitalWrite(layer[i + 1], LOW);
+        }
+      }
+    }
+    break;
+
+    case 'g':
+    {
+      for(int i = 0;i < columns;i += 4)
+      {
+         digitalWrite(cols[i], LOW);
+      }
+      for(int i = 0;i < 4;i++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 12], LOW);
+      }
+
+      for(int i = rows - 1;i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        turnOnLED(2, 1, i);
+        turnOnLED(3, 1, i);
+        delay(75);
+        if(i != rows - 1 && i != 0)
+        {
+          digitalWrite(layer[i + 1], LOW);
+          turnOffLED(2, 1, i);
+          turnOffLED(3, 1, i);
         }
       }
     }
@@ -639,6 +751,86 @@ void displayLetter(char letter)
       }
     }
     break;
+
+    case 'j':
+    {
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        turnOnLED(0, 1, i);
+        turnOnLED(1, 0, i);
+        turnOnLED(2, 0, i);
+        turnOnLED(3, 1, i);
+        turnOnLED(3, 2, i);
+        turnOnLED(0, 1, i);
+        turnOnLED(3, 3, i);
+        turnOnLED(2, 3, i);
+        delay(75);
+        if(i != rows - 1 && i != 0)
+        {
+          turnOnLED(0, 1, i + 1);
+          turnOnLED(1, 0, i + 1);
+          turnOnLED(2, 0, i + 1);
+          turnOnLED(3, 1, i + 1);
+          turnOnLED(3, 2, i + 1);
+          turnOnLED(0, 1, i + 1);
+          turnOnLED(3, 3, i + 1);
+          turnOnLED(2, 3, i + 1);
+        }
+      }
+    }
+    break;
+
+    case 'k':
+    {
+      int temp = 0;
+      for(int i = 0;i < columns;i += 4)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 3 - temp], LOW);
+        temp++;
+      }
+
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        turnOnLED(2, 3, i);
+        turnOnLED(3, 3, i);
+        delay(75);
+        if(i != rows - 1 && i != 0)
+        {
+          digitalWrite(layer[i + 1], LOW);
+          turnOnLED(2, 3, i);
+          turnOnLED(3, 3, i);
+        }
+      }
+    }
+    break;
+
+    case 'l':
+    {
+      for(int i = 0;i < 4;i++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i * 4], LOW);
+      }
+
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        if(i != rows - 1 && i != 0)
+        {
+          digitalWrite(layer[i + 1], LOW);
+        }
+      }
+    }
+    break;
+
+    case 'm':
+    {
+      
+    }
+    break;
     
     case 'n':
     {
@@ -651,6 +843,27 @@ void displayLetter(char letter)
         k++;
       }
 
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        if(i != rows - 1 && i != -1)
+        {
+          digitalWrite(layer[i + 1], LOW);
+        }
+      }
+    }
+    break;
+
+    case 'o':
+    {
+      for(int i = 0;i < 4;i++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 12], LOW);
+        digitalWrite(cols[i * 4], LOW);
+        digitalWrite(cols[i * 4 + 3], LOW);
+      }
 
       for(int i = rows - 1; i >= 0;i--)
       {
@@ -688,6 +901,30 @@ void displayLetter(char letter)
       }
     break;
 
+    case 'q':
+    {
+      for(int i = 0;i < 4;i++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 12], LOW);
+        digitalWrite(cols[i * 4], LOW);
+        digitalWrite(cols[i * 4 + 3], LOW);
+      }
+
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        turnOnLED(2, 1, i);
+        delay(75);
+        if(i != rows - 1 && i != -1)
+        {
+          digitalWrite(layer[i + 1], LOW);
+          turnOffLED(2, 1, i + 1);
+        }
+      }
+    }
+    break;
+    
     case 'r':
       for(int i = 0;i < columns;i+=4)
       {
@@ -724,6 +961,29 @@ void displayLetter(char letter)
         k++;
       }
 
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        if(i != rows - 1 && i != -1)
+        {
+          digitalWrite(layer[i + 1], LOW);
+        }
+      }
+    }
+    break;
+
+    case 't':
+    {
+      for(int i = 1;i < columns;i += 4)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 1], LOW);
+      }
+      for(int i = 8; i < columns;i++)
+      {
+        digitalWrite(cols[i], LOW);
+      }
 
       for(int i = rows - 1; i >= 0;i--)
       {
@@ -737,6 +997,27 @@ void displayLetter(char letter)
     }
     break;
 
+    case 'u':
+    {
+      for(int i = 0;i < 4;i++)
+      {
+        digitalWrite(cols[i], LOW); 
+        digitalWrite(cols[i * 4], LOW);
+        digitalWrite(cols[i * 4 + 3], LOW);
+      }
+
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        if(i != rows - 1 && i != -1)
+        {
+          digitalWrite(layer[i + 1], LOW);
+        }
+      }
+    }
+    break;
+    
     case 'v':
     {
       for(int i = 4;i < columns;i+=4)
@@ -782,6 +1063,27 @@ void displayLetter(char letter)
             m = 1;
       }
       
+      for(int i = rows - 1; i >= 0;i--)
+      {
+        digitalWrite(layer[i], HIGH);
+        delay(75);
+        if(i != rows - 1 && i != -1)
+        {
+          digitalWrite(layer[i + 1], LOW);
+        }
+      }
+    }
+    break;
+
+    case 'z':
+    {
+      for(int i = 0;i < rows; i ++)
+      {
+        digitalWrite(cols[i], LOW);
+        digitalWrite(cols[i + 12], LOW);
+        digitalWrite(cols[(i * 3) + 3], LOW);
+      }
+
       for(int i = rows - 1; i >= 0;i--)
       {
         digitalWrite(layer[i], HIGH);
